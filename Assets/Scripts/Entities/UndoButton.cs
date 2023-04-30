@@ -1,4 +1,5 @@
 using GameLogic;
+using Services.Ads;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -9,11 +10,13 @@ namespace Entities
   {
     public Button Button;
     private IGameLogic _gameLogic;
+    private IAdsService _adsService;
 
     [Inject]
-    private void Constructor(IGameLogic gameLogic)
+    private void Constructor(IGameLogic gameLogic, IAdsService adsService)
     {
       _gameLogic = gameLogic;
+      _adsService = adsService;
     }
     
     private void Awake()
@@ -21,9 +24,14 @@ namespace Entities
       Button.onClick.AddListener(OnClickHandler);
     }
 
-    private void OnClickHandler()
+    private async void OnClickHandler()
     {
-      _gameLogic.UndoMove();
+      bool shown = await _adsService.TryShowRewarded();
+
+      if (shown)
+      {
+        _gameLogic.UndoMove(); 
+      }
     }
   }
 }

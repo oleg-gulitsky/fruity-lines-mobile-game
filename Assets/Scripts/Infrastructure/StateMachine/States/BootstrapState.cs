@@ -1,3 +1,4 @@
+using Services.Ads;
 using Services.Progress;
 
 namespace Infrastructure.StateMachine.States
@@ -6,15 +7,18 @@ namespace Infrastructure.StateMachine.States
   {
     private readonly GameStateMachine _stateMachine;
     private readonly IProgressService _progressService;
+    private readonly IAdsService _adsService;
 
-    public BootstrapState(GameStateMachine stateMachine, IProgressService progressService)
+    public BootstrapState(GameStateMachine stateMachine, IProgressService progressService, IAdsService adsService)
     {
       _progressService = progressService;
+      _adsService = adsService;
       _stateMachine = stateMachine;
     }
 
     public void Enter()
     {
+      _adsService.Initialize();
       _progressService.LoadProgress();
       _stateMachine.Enter<GameLoopState>();
     }
