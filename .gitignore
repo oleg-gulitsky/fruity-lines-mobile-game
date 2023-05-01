@@ -60,6 +60,8 @@ sysinfo.txt
 *.aab
 *.unitypackage
 *.app
+*_BurstDebugInformation_DoNotShip
+
 
 # Crashlytics generated file
 crashlytics-build.properties
@@ -72,3 +74,5 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 /[Aa]ssets/[Cc]onfigs/
+
+/.idea
