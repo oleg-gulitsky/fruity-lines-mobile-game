@@ -16,10 +16,10 @@ namespace Entities
     public GameObject OrangePrefab;
 
     private IGameLogic _gameLogic;
-    private DiContainer _container;
+    private IInstantiator _container;
 
     [Inject]
-    public void Construct(DiContainer container, GameLogic.GameLogic gameLogic)
+    public void Construct(IInstantiator container, GameLogic.GameLogic gameLogic)
     {
       _container = container;
       _gameLogic = gameLogic;

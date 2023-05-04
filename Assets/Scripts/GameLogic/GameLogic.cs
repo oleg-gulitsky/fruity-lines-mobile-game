@@ -1,7 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Infrastructure;
+using Cysharp.Threading.Tasks;
 using Services.Progress;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -25,13 +24,11 @@ namespace GameLogic
     private GameObject _selectedFruit;
     private bool _isFruitMoving;
 
-    private AsyncProcessor _asyncProcessor;
     private IProgressService _progressService;
 
     [Inject]
-    public void Constructor(AsyncProcessor asyncProcessor, IProgressService progressService)
+    public void Constructor(IProgressService progressService)
     {
-      _asyncProcessor = asyncProcessor;
       _progressService = progressService;
     }
 
@@ -110,18 +107,18 @@ namespace GameLogic
         return;
 
       _isFruitMoving = true;
-      _asyncProcessor.StartCoroutine(Move(path));
+      Move(path);
 
       _cells[targetCell.X, targetCell.Y] = _cells[currentFruitCell.X, currentFruitCell.Y];
       _cells[currentFruitCell.X, currentFruitCell.Y] = Empty;
     }
 
-    private IEnumerator Move(List<CellData> path)
+    private async void Move(List<CellData> path)
     {
       foreach (CellData cellData in path)
       {
         _selectedFruit.transform.localPosition = Tools.ConvertCellDataToVector3(cellData);
-        yield return new WaitForSeconds(0.15f);
+        await UniTask.Delay(150);
       }
 
       UpdateGameState(path[^1]);
