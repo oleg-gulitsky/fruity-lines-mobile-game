@@ -10,9 +10,9 @@ namespace Infrastructure.StateMachine
   {
     private readonly Dictionary<Type, IExitableState> _states;
     private IExitableState _activeState;
-    private readonly DiContainer _container;
+    private readonly IInstantiator _container;
     
-    public GameStateMachine(DiContainer container)
+    public GameStateMachine(IInstantiator container)
     {
       _container = container;
     }
