@@ -9,14 +9,15 @@ namespace Entities
 {
   public class BoardGrid : MonoBehaviour
   {
-    public GameObject ApplePrefab;
-    public GameObject BananaPrefab;
-    public GameObject GrapePrefab;
-    public GameObject PearPrefab;
-    public GameObject OrangePrefab;
+    public Fruit ApplePrefab;
+    public Fruit BananaPrefab;
+    public Fruit GrapePrefab;
+    public Fruit OrangePrefab;
+    public Fruit PearPrefab;
 
     private IGameLogic _gameLogic;
     private IInstantiator _container;
+    private readonly List<Fruit> _fruits = new();
 
     [Inject]
     public void Construct(IInstantiator container, GameLogic.GameLogic gameLogic)
@@ -49,10 +50,13 @@ namespace Entities
 
     private void AddFruit(CellData cellData)
     {
-      GameObject fruit = _container.InstantiatePrefab(
-        GetFruitPrefab(cellData.FruitType), Vector3.zero, Quaternion.identity, transform);
-      fruit.transform.localPosition = new Vector3(cellData.X, cellData.Y, -1);
-      fruit.transform.localScale = Vector3.one;
+      Fruit fruit = _container.InstantiatePrefab(
+        GetFruitPrefab(cellData.FruitType), Vector3.zero, Quaternion.identity, transform
+        ).GetComponent<Fruit>();
+      Transform fruitTransform = fruit.transform;
+      fruitTransform.localPosition = new Vector3(cellData.X, cellData.Y, -1);
+      fruitTransform.localScale = Vector3.one;
+      _fruits.Add(fruit);
     }
 
     private Object GetFruitPrefab(FruitType fruitType)
@@ -71,18 +75,22 @@ namespace Entities
 
     private void RemoveFruitsHandler(List<CellData> cells)
     {
-      Fruit[] fruits = gameObject.GetComponentsInChildren<Fruit>();
-      
       foreach (CellData cell in cells)
       {
-        foreach (Fruit fruit in fruits)
+        Fruit removeFruit = null;
+        
+        foreach (Fruit fruit in _fruits)
         {
           if (Math.Abs(fruit.gameObject.transform.localPosition.x - cell.X) < 0.1 
               && Math.Abs(fruit.gameObject.transform.localPosition.y - cell.Y) < 0.1)
           {
+            removeFruit = fruit;
             Destroy(fruit.gameObject);
           }
         }
+
+        if (removeFruit)
+          _fruits.Remove(removeFruit);
       }
     }
   }
