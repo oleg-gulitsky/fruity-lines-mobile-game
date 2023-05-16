@@ -17,7 +17,7 @@ namespace Services.Ads
       _sdkKey = adsConfig.MAXSdkKey;
 
 #if UNITY_IOS
-      _adsUnit = adsConfig.IOSUnitsIds;
+      _adsUnitsIds = adsConfig.IOSUnitsIds;
 #elif UNITY_ANDROID
       _adsUnitsIds = adsConfig.AndroidUnitsIds;
 #endif

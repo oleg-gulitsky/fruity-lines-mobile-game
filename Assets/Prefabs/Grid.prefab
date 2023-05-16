@@ -170,11 +170,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 961ec6ade9e74ab2afe637fac87f2cd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ApplePrefab: {fileID: 589369688061680567, guid: c241d5991c1554815b335d3002182297, type: 3}
-  BananaPrefab: {fileID: 589369688061680567, guid: a9ce9307850c7401bbe789e68260770b, type: 3}
-  GrapePrefab: {fileID: 589369688061680567, guid: 6c10b6a891528494d996dec8adb91848, type: 3}
-  PearPrefab: {fileID: 589369688061680567, guid: e0217f1de18b54966b79c840ae22f52b, type: 3}
-  OrangePrefab: {fileID: 589369688061680567, guid: d2aa65c7dbdf64eab9f24f5ee658713c, type: 3}
+  ApplePrefab: {fileID: -4375201629008054893, guid: c241d5991c1554815b335d3002182297, type: 3}
+  BananaPrefab: {fileID: -4375201629008054893, guid: a9ce9307850c7401bbe789e68260770b, type: 3}
+  GrapePrefab: {fileID: -4375201629008054893, guid: 6c10b6a891528494d996dec8adb91848, type: 3}
+  OrangePrefab: {fileID: -4375201629008054893, guid: d2aa65c7dbdf64eab9f24f5ee658713c, type: 3}
+  PearPrefab: {fileID: -4375201629008054893, guid: e0217f1de18b54966b79c840ae22f52b, type: 3}
 --- !u!1001 &833854032072887841
 PrefabInstance:
   m_ObjectHideFlags: 0
