@@ -13,6 +13,8 @@ namespace Infrastructure
     public void Construct(IGameStateMachine gameStateMachine)
     {
       _gameStateMachine = gameStateMachine;
+      
+      DontDestroyOnLoad(this);
     }
 
     private void Start()

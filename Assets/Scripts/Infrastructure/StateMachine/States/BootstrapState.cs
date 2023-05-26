@@ -20,7 +20,7 @@ namespace Infrastructure.StateMachine.States
     {
       _adsService.Initialize();
       _progressService.LoadProgress();
-      _stateMachine.Enter<GameLoopState>();
+      _stateMachine.Enter<GameplayState>();
     }
 
     public void Exit() { }

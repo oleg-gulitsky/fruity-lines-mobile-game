@@ -24,6 +24,10 @@ namespace Entities
     {
       _container = container;
       _gameLogic = gameLogic;
+    }
+
+    private void Awake()
+    {
       _gameLogic.AddOneFruitToBoard += AddOneFruitHandler;
       _gameLogic.AddSomeFruitsToBoard += AddSomeFruitsHandler;
       _gameLogic.RemoveFruitsFromBoard += RemoveFruitsHandler;
@@ -31,6 +35,7 @@ namespace Entities
 
     private void OnDestroy()
     {
+      _gameLogic.AddOneFruitToBoard -= AddOneFruitHandler;
       _gameLogic.AddSomeFruitsToBoard -= AddSomeFruitsHandler;
       _gameLogic.RemoveFruitsFromBoard -= RemoveFruitsHandler;
     }
