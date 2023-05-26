@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using GameLogic;
+using Infrastructure.SceneLoading;
 using Infrastructure.StateMachine.States;
-using Zenject;
+using Services.Ads;
+using Services.Progress;
 
 namespace Infrastructure.StateMachine
 
@@ -10,11 +13,18 @@ namespace Infrastructure.StateMachine
   {
     private readonly Dictionary<Type, IExitableState> _states;
     private IExitableState _activeState;
-    private readonly IInstantiator _container;
     
-    public GameStateMachine(IInstantiator container)
+    public GameStateMachine(
+      ISceneLoader sceneLoader,
+      IProgressService progressService,
+      IAdsService adsService,
+      IGameLogic gameLogic)
     {
-      _container = container;
+      _states = new Dictionary<Type, IExitableState>()
+      {
+        [typeof(BootstrapState)] = new BootstrapState(this, progressService, adsService),
+        [typeof(GameplayState)] = new GameplayState(sceneLoader, gameLogic)
+      };
     }
 
     public void Enter<TState>() where TState : class, IState
@@ -33,7 +43,7 @@ namespace Infrastructure.StateMachine
     {
       _activeState?.Exit();
       
-      TState state = Create<TState>();
+      TState state = GetState<TState>();
       _activeState = state;
       
       return state;
@@ -41,8 +51,5 @@ namespace Infrastructure.StateMachine
 
     private TState GetState<TState>() where TState : class, IExitableState =>
       _states[typeof(TState)] as TState;
-    
-    private TState Create<TState>() where TState : class, IExitableState =>
-      _container.Instantiate<TState>();
   }
 }

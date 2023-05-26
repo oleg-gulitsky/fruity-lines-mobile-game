@@ -15,9 +15,13 @@ namespace Entities
     private void Constructor(IGameLogic gameLogic)
     {
       _gameLogic = gameLogic;
-      _gameLogic.UpdatePointsUI += UpdateHandler;
     }
 
+    private void Awake()
+    {
+      _gameLogic.UpdatePointsUI += UpdateHandler;
+    }
+    
     private void OnDestroy()
     {
       _gameLogic.UpdatePointsUI -= UpdateHandler;
