@@ -1,5 +1,8 @@
 using Infrastructure.SceneLoading;
 using Infrastructure.StateMachine;
+using Logic.Board;
+using Logic.Game;
+using Logic.Points;
 using Services.Ads;
 using Services.Progress;
 using Zenject;
@@ -13,8 +16,10 @@ namespace Infrastructure
       Container.BindInterfacesAndSelfTo<SceneLoader>().AsSingle();
       Container.BindInterfacesAndSelfTo<AdsService>().AsSingle();
       Container.BindInterfacesAndSelfTo<ProgressService>().AsSingle();
-      Container.BindInterfacesAndSelfTo<GameLogic.GameLogic>().AsSingle();
       Container.BindInterfacesAndSelfTo<GameStateMachine>().AsSingle();
+      Container.BindInterfacesAndSelfTo<Board>().AsSingle();
+      Container.BindInterfacesAndSelfTo<Points>().AsSingle();
+      Container.BindInterfacesAndSelfTo<Game>().AsSingle();
     }
   }
 }

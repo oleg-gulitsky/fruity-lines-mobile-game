@@ -19,7 +19,7 @@ namespace Infrastructure.StateMachine.States
     public void Enter()
     {
       _adsService.Initialize();
-      _progressService.LoadProgress();
+      _progressService.Load();
       _stateMachine.Enter<GameplayState>();
     }
 
