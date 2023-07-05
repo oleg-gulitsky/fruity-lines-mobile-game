@@ -1,14 +1,13 @@
-using System.Collections.Generic;
-using GameLogic;
+using Logic.Board;
 
 namespace Services.Progress
 {
   public interface IProgressService
   {
-    public void LoadProgress();
-    public void UpdateGameProgress(FruitType[,] cells, int points);
-    public GameState PopGameState();
-    public GameState GetGameState();
-    public void ClearGameProgress();
+    public void Load();
+    public void Push(GameProgress gameProgress);
+    public GameProgress Pop();
+    public GameProgress Get();
+    public void Clear();
   }
 }

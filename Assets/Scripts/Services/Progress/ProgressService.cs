@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using GameLogic;
 using OdinSerializer;
 using UnityEngine;
 
@@ -12,37 +11,38 @@ namespace Services.Progress
   {
     private const string ProgressKey = "Progress";
 
-    private Stack<GameState> _gameProgress;
+    private Stack<GameProgress> _gameProgress;
 
-    public void LoadProgress()
+    public void Load()
     {
       string value = PlayerPrefs.GetString(ProgressKey);
       byte[] bytes = Encoding.ASCII.GetBytes(value);
-      Stack<GameState> gameProgress = SerializationUtility.DeserializeValue<Stack<GameState>>(bytes, DataFormat.JSON);
-      _gameProgress = gameProgress?.Count >= 1 ? gameProgress : new Stack<GameState>();
+      Stack<GameProgress> gameProgress = 
+        SerializationUtility.DeserializeValue<Stack<GameProgress>>(bytes, DataFormat.JSON);
+      _gameProgress = gameProgress?.Count >= 1 ? gameProgress : new Stack<GameProgress>();
     }
     
-    public void UpdateGameProgress(FruitType[,] cells, int points)
+    public void Push(GameProgress gameProgress)
     {
-      _gameProgress.Push(new GameState((FruitType[,]) cells.Clone(), points));
+      _gameProgress.Push(gameProgress);
       SaveProgress();
     }
 
-    public GameState PopGameState()
+    public GameProgress Pop()
     {
       if (_gameProgress.Count <= 1)
         return _gameProgress.Peek();
-      GameState currentGameState = _gameProgress.Pop();
+      GameProgress currentGameProgress = _gameProgress.Pop();
       SaveProgress();
-      return currentGameState;
+      return currentGameProgress;
     }
 
-    public GameState GetGameState()
+    public GameProgress Get()
     {
       return _gameProgress.Count >= 1 ? _gameProgress.Peek() : null;
     }
 
-    public void ClearGameProgress()
+    public void Clear()
     {
       _gameProgress.Clear();
     }

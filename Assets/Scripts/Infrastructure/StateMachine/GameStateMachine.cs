@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using GameLogic;
 using Infrastructure.SceneLoading;
 using Infrastructure.StateMachine.States;
+using Logic.Game;
 using Services.Ads;
 using Services.Progress;
 
@@ -18,12 +18,12 @@ namespace Infrastructure.StateMachine
       ISceneLoader sceneLoader,
       IProgressService progressService,
       IAdsService adsService,
-      IGameLogic gameLogic)
+      IGame game)
     {
       _states = new Dictionary<Type, IExitableState>()
       {
         [typeof(BootstrapState)] = new BootstrapState(this, progressService, adsService),
-        [typeof(GameplayState)] = new GameplayState(sceneLoader, gameLogic)
+        [typeof(GameplayState)] = new GameplayState(sceneLoader, game)
       };
     }
 
